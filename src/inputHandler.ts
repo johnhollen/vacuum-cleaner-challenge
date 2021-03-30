@@ -1,4 +1,3 @@
-import { Interface } from 'readline';
 import {
   Command,
   Compass,
@@ -29,46 +28,26 @@ function parseCommand(commandStr: string): Command {
   };
 }
 
-function readLines(lineReader: Interface) {
-  return new Promise<{ startCoordinate: string; commands: string[] }>(
-    (resolve) => {
-      let lineIndex = -1;
-      let numberOfCommands = 0;
-      let startCoordinate = '';
-      const commands: string[] = [];
-
-      lineReader.on('line', (line) => {
-        lineIndex += 1;
-        if (lineIndex === 0) {
-          numberOfCommands = toInt(line);
-          return;
-        }
-
-        if (lineIndex === 1) {
-          startCoordinate = line;
-          return;
-        }
-
-        commands.push(line);
-
-        if (lineIndex === numberOfCommands + 1) {
-          lineReader.close();
-          resolve({
-            commands,
-            startCoordinate,
-          });
-        }
-      });
-    }
-  );
+function readLine(lineReaderFactory: LineReaderFactory) {
+  return new Promise<string>((resolve) => {
+    const lineReader = lineReaderFactory();
+    lineReader.on('line', (userInput) => {
+      lineReader.close();
+      resolve(userInput);
+    });
+  });
 }
 
 export async function acceptAndParseUserInput(
   lineReaderFactory: LineReaderFactory
 ): Promise<ParsedUserInput> {
-  const lineReader = lineReaderFactory();
+  const numberOfCommands = toInt(await readLine(lineReaderFactory));
+  const startCoordinate = await readLine(lineReaderFactory);
+  const commands: string[] = [];
 
-  const { startCoordinate, commands } = await readLines(lineReader);
+  for (let i = 0; i < numberOfCommands; i++) {
+    commands.push(await readLine(lineReaderFactory));
+  }
 
   return {
     startCoordinate: parseCoordinate(startCoordinate),
