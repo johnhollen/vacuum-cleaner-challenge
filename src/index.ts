@@ -1,5 +1,6 @@
 import { createInterface } from 'readline';
 import { acceptAndParseUserInput } from './inputHandler';
+import { runVacuum } from './vacuum';
 
 function createDefaultLineReader() {
   return createInterface({
@@ -9,8 +10,10 @@ function createDefaultLineReader() {
 
 async function main() {
   console.log('Vacuum is ready to accept input...');
+
   const userInput = await acceptAndParseUserInput(createDefaultLineReader);
-  console.log('parsed user input >>', userInput);
+
+  runVacuum(userInput);
 }
 
 main();

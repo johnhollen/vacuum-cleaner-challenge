@@ -9,6 +9,11 @@ export enum Compass {
   W = 'W',
 }
 
+export enum Orientation {
+  Horizontal = 'horizontal',
+  Vertical = 'vertical',
+}
+
 export interface Command {
   direction: Compass;
   steps: number;
@@ -17,6 +22,12 @@ export interface Command {
 export interface Coordinate {
   x: number;
   y: number;
+}
+
+export interface Line {
+  from: Coordinate;
+  to: Coordinate;
+  orientation: Orientation;
 }
 
 export interface ParsedUserInput {
