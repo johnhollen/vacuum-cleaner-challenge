@@ -120,13 +120,9 @@ function groupLinesByFixedCoordinate(lines: Line[]) {
 export function isWithinRange(
   from: number,
   to: number,
-  valueToCheck: number,
-  includeLineEnds = true
+  valueToCheck: number
 ): boolean {
-  if (includeLineEnds) {
-    return valueToCheck >= from && valueToCheck <= to;
-  }
-  return valueToCheck > from && valueToCheck < to;
+  return valueToCheck >= from && valueToCheck <= to;
 }
 
 function extendLine(line1: Line, line2: Line): Line {
@@ -196,7 +192,9 @@ export function findOverlappingLines(lines: Line[]): Line[] {
   Object.keys(linesGroupedByFixedCoordinate).forEach((key) => {
     const keyAsInt = parseInt(key, 10);
     const lines = linesGroupedByFixedCoordinate[keyAsInt];
-    linesGroupedByFixedCoordinate[keyAsInt] = mergeOverlappingLines(lines);
+    if (lines.length > 1) {
+      linesGroupedByFixedCoordinate[keyAsInt] = mergeOverlappingLines(lines);
+    }
   });
 
   return Object.values(linesGroupedByFixedCoordinate).reduce((acc, lines) => {

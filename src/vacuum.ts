@@ -15,16 +15,14 @@ function countIntersections(
     const intersectingHorizontalLines = horizontalLines.filter(
       (horizontalLine) =>
         isWithinRange(
-          horizontalLine.from.x,
-          horizontalLine.to.x,
-          verticalLine.from.x,
-          false
-        ) &&
-        isWithinRange(
           verticalLine.from.y,
           verticalLine.to.y,
-          horizontalLine.from.y,
-          false
+          horizontalLine.from.y
+        ) &&
+        isWithinRange(
+          horizontalLine.from.x,
+          horizontalLine.to.x,
+          verticalLine.from.x
         )
     );
 
@@ -38,20 +36,20 @@ function summarizeCleanedTiles(
   horizontalLines: Line[],
   verticalLines: Line[]
 ): number {
-  // Start on 1.
-  // Since the vacuum always gets dropped on a tile, the minimum number of cleaned will be 1
-  let sum = 1;
+  let sum = 0;
 
   horizontalLines.forEach((line) => {
     const from = line.from.x;
     const to = line.to.x;
-    sum += to - from;
+    // If the line was 2 tiles long, we actually covered three tiles from start to end
+    // from = 0, to = 2,  2 - 0 == 2, and add the third tile
+    sum += to - from + 1;
   });
 
   verticalLines.forEach((line) => {
     const from = line.from.y;
     const to = line.to.y;
-    sum += to - from;
+    sum += to - from + 1;
   });
 
   return sum - countIntersections(horizontalLines, verticalLines);
