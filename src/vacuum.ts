@@ -56,6 +56,12 @@ function summarizeCleanedTiles(
 }
 
 export function runVacuum(input: ParsedUserInput): number {
+  // If the number of commands is 0, we will have cleaned one tile.
+  // The one the vacuum landed on when dropped in to the world
+  if (!input.commands.length) {
+    return 1;
+  }
+
   const path = buildTravelledPath(input);
 
   const cleanedHorizontalLines = findOverlappingLines(

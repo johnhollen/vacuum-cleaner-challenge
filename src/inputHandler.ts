@@ -51,6 +51,6 @@ export async function acceptAndParseUserInput(
 
   return {
     startCoordinate: parseCoordinate(startCoordinate),
-    commands: commands.map(parseCommand).filter((command) => command.steps > 0),
+    commands: commands.map(parseCommand),
   };
 }

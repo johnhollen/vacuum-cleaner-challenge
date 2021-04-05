@@ -2,6 +2,15 @@ import { Compass, ParsedUserInput } from './types';
 import { runVacuum } from './vacuum';
 
 describe('vacuum', () => {
+  it('should clean 1 tile when the number of commands is 0', () => {
+    const userInput: ParsedUserInput = {
+      startCoordinate: { x: 0, y: 0 },
+      commands: [],
+    };
+
+    expect(runVacuum(userInput)).toBe(1);
+  });
+
   it('should clean a single horizontal line', () => {
     const userInput: ParsedUserInput = {
       startCoordinate: { x: 0, y: 0 },

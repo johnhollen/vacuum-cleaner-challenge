@@ -8,15 +8,10 @@ function createDefaultLineReader() {
   });
 }
 
-async function main() {
-  console.log('Vacuum is ready to accept input...');
+(async function main() {
   const cleanedTiles = runVacuum(
     await acceptAndParseUserInput(createDefaultLineReader)
   );
 
-  console.log('');
   console.log('=> Cleaned:', cleanedTiles);
-  console.log('');
-}
-
-main();
+})();
