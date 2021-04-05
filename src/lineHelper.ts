@@ -112,12 +112,16 @@ function groupLines(lines: Line[], mapperFn: (line: Line) => number) {
   return lookup;
 }
 
-function isWithinRange(
+export function isWithinRange(
   from: number,
   to: number,
-  valueToCheck: number
+  valueToCheck: number,
+  includeLineEnds = true
 ): boolean {
-  return valueToCheck >= from && valueToCheck <= to;
+  if (includeLineEnds) {
+    return valueToCheck >= from && valueToCheck <= to;
+  }
+  return valueToCheck > from && valueToCheck < to;
 }
 
 function extendLine(line1: Line, line2: Line): Line {

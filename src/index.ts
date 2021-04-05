@@ -13,7 +13,11 @@ async function main() {
 
   const userInput = await acceptAndParseUserInput(createDefaultLineReader);
 
-  runVacuum(userInput);
+  const cleanedTiles = runVacuum(userInput);
+
+  console.log('');
+  console.log('=> Cleaned:', cleanedTiles);
+  console.log('');
 }
 
 main();
