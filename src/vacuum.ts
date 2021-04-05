@@ -61,12 +61,10 @@ export function runVacuum(input: ParsedUserInput): number {
   const path = buildTravelledPath(input);
 
   const cleanedHorizontalLines = findOverlappingLines(
-    path.filter((line) => line.orientation === Orientation.Horizontal),
-    Orientation.Horizontal
+    path.filter((line) => line.orientation === Orientation.Horizontal)
   );
   const cleanedVerticalLines = findOverlappingLines(
-    path.filter((line) => line.orientation === Orientation.Vertical),
-    Orientation.Vertical
+    path.filter((line) => line.orientation === Orientation.Vertical)
   );
 
   return summarizeCleanedTiles(cleanedHorizontalLines, cleanedVerticalLines);

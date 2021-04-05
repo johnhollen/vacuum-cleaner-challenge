@@ -10,7 +10,7 @@ describe('lineHelper', () => {
         createLine(-4, 0, 1, 0, Orientation.Horizontal),
       ];
 
-      const actual = findOverlappingLines(lines, Orientation.Horizontal);
+      const actual = findOverlappingLines(lines);
       expect(actual).toEqual([createLine(-4, 0, 2, 0, Orientation.Horizontal)]);
     });
 
@@ -21,11 +21,15 @@ describe('lineHelper', () => {
         createLine(0, 5, 0, 10, Orientation.Vertical),
       ];
 
-      const actual = findOverlappingLines(lines, Orientation.Vertical);
+      const actual = findOverlappingLines(lines);
       expect(actual).toEqual([
         createLine(0, -4, 0, 2, Orientation.Vertical),
         createLine(0, 5, 0, 10, Orientation.Vertical),
       ]);
+    });
+
+    it('should return an empty array if the input array is empty', () => {
+      expect(findOverlappingLines([])).toEqual([]);
     });
   });
 

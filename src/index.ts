@@ -10,10 +10,9 @@ function createDefaultLineReader() {
 
 async function main() {
   console.log('Vacuum is ready to accept input...');
-
-  const userInput = await acceptAndParseUserInput(createDefaultLineReader);
-
-  const cleanedTiles = runVacuum(userInput);
+  const cleanedTiles = runVacuum(
+    await acceptAndParseUserInput(createDefaultLineReader)
+  );
 
   console.log('');
   console.log('=> Cleaned:', cleanedTiles);

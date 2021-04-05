@@ -27,7 +27,9 @@
       "**/*.ts",
       "!**/*.test.ts",
       "!**/node_modules/**",
-      "!**/vendor/**"
+      "!**/vendor/**",
+      "!**/__fixtures__/**",
+      "!**/index.ts"
     ]
   }
 }
