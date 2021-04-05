@@ -4,7 +4,7 @@
   "description": "robot vacuum cleaner code test",
   "main": "src/index.ts",
   "scripts": {
-    "start:dev": "tsc && node ./dist/index.js",
+    "start": "tsc && node ./dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
@@ -29,7 +29,7 @@
       "!**/node_modules/**",
       "!**/vendor/**",
       "!**/__fixtures__/**",
-      "!**/index.ts"
+      "!src/index.ts"
     ]
   }
 }
